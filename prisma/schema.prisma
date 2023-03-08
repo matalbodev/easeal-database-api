@@ -22,6 +22,7 @@ model User {
   lastname  String?
   posts     Post[]
   role      Role
+  Recipe    Recipe[]
 }
 
 model Post {
@@ -38,4 +39,42 @@ model Post {
 enum Role {
   ADMIN
   USER
+}
+
+model Ingredient {
+  uuid             String             @id @default(uuid()) @db.Uuid
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  name             String             @db.VarChar(255)
+  kcal             Int                @default(0) @db.Integer
+  mainType         MainType
+  RecipeIngredient RecipeIngredient[]
+}
+
+model Recipe {
+  uuid        String             @id @default(uuid()) @db.Uuid
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+  name        String             @db.VarChar(255)
+  description String             @db.VarChar(255)
+  ingredients RecipeIngredient[]
+  author      User?              @relation(fields: [authorId], references: [id])
+  authorId    String?
+}
+
+model RecipeIngredient {
+  recipeUuid     String     @db.Uuid
+  ingredientUuid String     @db.Uuid
+  amount         Int        @db.Integer
+  recipe         Recipe     @relation(fields: [recipeUuid], references: [uuid])
+  ingredient     Ingredient @relation(fields: [ingredientUuid], references: [uuid])
+
+  @@id([recipeUuid, ingredientUuid])
+}
+
+enum MainType {
+  PROTEIN
+  CARBOHYDRATE
+  FAT
+  SUGAR
 }

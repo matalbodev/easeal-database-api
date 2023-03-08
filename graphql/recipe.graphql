@@ -1,0 +1,12 @@
+query Recipe {
+  recipes() {
+    id
+    name
+    description
+    ingredients {
+      id
+      name
+      quantity
+    }
+  }
+}

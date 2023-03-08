@@ -12,6 +12,7 @@ Table User {
   lastname String
   posts Post [not null]
   role Role [not null]
+  Recipe Recipe [not null]
 }
 
 Table Post {
@@ -25,9 +26,48 @@ Table Post {
   authorId String
 }
 
+Table Ingredient {
+  uuid String [pk]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  name String [not null]
+  kcal Int [not null, default: 0]
+  mainType String [not null]
+  RecipeIngredient RecipeIngredient [not null]
+}
+
+Table Recipe {
+  uuid String [pk]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  name String [not null]
+  description String [not null]
+  ingredients RecipeIngredient [not null]
+  author User
+  authorId String
+}
+
+Table RecipeIngredient {
+  recipeUuid String [not null]
+  ingredientUuid String [not null]
+  amount Int [not null]
+  recipe Recipe [not null]
+  ingredient Ingredient [not null]
+
+  indexes {
+    (recipeUuid, ingredientUuid) [pk]
+  }
+}
+
 Enum Role {
   ADMIN
   USER
 }
 
 Ref: Post.authorId > User.id
+
+Ref: Recipe.authorId > User.id
+
+Ref: RecipeIngredient.recipeUuid > Recipe.uuid
+
+Ref: RecipeIngredient.ingredientUuid > Ingredient.uuid

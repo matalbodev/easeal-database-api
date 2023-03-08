@@ -16,15 +16,30 @@ input ChangePasswordInput {
   oldPassword: String!
 }
 
+input CreateIngredientInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
 input CreatePostInput {
   content: String!
   title: String!
+}
+
+input CreateRecipeInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
 }
 
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
+
+type Ingredient {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
 
 """
 A field whose value is a JSON Web Token (JWT): https://jwt.io/introduction.
@@ -38,10 +53,16 @@ input LoginInput {
 
 type Mutation {
   changePassword(data: ChangePasswordInput!): User!
+  createIngredient(createIngredientInput: CreateIngredientInput!): Ingredient!
   createPost(data: CreatePostInput!): Post!
+  createRecipe(createRecipeInput: CreateRecipeInput!): Recipe!
   login(data: LoginInput!): Auth!
   refreshToken(token: JWT!): Token!
+  removeIngredient(id: Int!): Ingredient!
+  removeRecipe(id: Int!): Recipe!
   signup(data: SignupInput!): Auth!
+  updateIngredient(updateIngredientInput: UpdateIngredientInput!): Ingredient!
+  updateRecipe(updateRecipeInput: UpdateRecipeInput!): Recipe!
   updateUser(data: UpdateUserInput!): User!
 }
 
@@ -103,10 +124,17 @@ enum PostOrderField {
 type Query {
   hello(name: String!): String!
   helloWorld: String!
+  ingredient(id: Int!): Ingredient!
   me: User!
   post(postId: String!): Post!
   publishedPosts(after: String, before: String, first: Int, last: Int, orderBy: PostOrder, query: String, skip: Int): PostConnection!
+  recipe(id: Int!): Recipe!
+  recipes(skip: Int! = 0, take: Int! = 25): [Recipe!]!
   userPosts(userId: String!): [Post!]!
+}
+
+type Recipe {
+  name: String
 }
 
 """User role"""
@@ -132,6 +160,18 @@ type Token {
 
   """JWT refresh token"""
   refreshToken: JWT!
+}
+
+input UpdateIngredientInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input UpdateRecipeInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
 }
 
 input UpdateUserInput {

@@ -1,10 +1,49 @@
 import { PrismaClient } from '@prisma/client';
+import axios from 'axios';
 
 const prisma = new PrismaClient();
+
+const loadFruits = async () => {
+  const response = await axios.get('https://fruityvice.com/api/fruit/all');
+  const fruits = response.data;
+
+  // loop through the data and create a new ingredient for each fruit
+  fruits.forEach(
+    async (fruit: {
+      name: string;
+      nutritions: {
+        calories: number;
+        carbohydrates: number;
+        fat: number;
+        protein: number;
+      };
+    }) => {
+      const nutritions = fruit.nutritions;
+      const nutritionsClone = { ...nutritions };
+      delete nutritionsClone.calories;
+      const highestNutrition = Object.keys(nutritionsClone).reduce((a, b) =>
+        nutritionsClone[a] > nutritionsClone[b] ? a : b
+      );
+
+      const ingredient = await prisma.ingredient.create({
+        data: {
+          name: fruit.name,
+          kcal: fruit.nutritions.calories,
+          mainType: highestNutrition,
+        },
+      });
+
+      console.log(`Created ingredient: ${ingredient.name}`);
+    }
+  );
+};
 
 async function main() {
   await prisma.user.deleteMany();
   await prisma.post.deleteMany();
+  await prisma.recipeIngredient.deleteMany();
+  await prisma.recipe.deleteMany();
+  await prisma.ingredient.deleteMany();
 
   console.log('Seeding...');
 
@@ -48,7 +87,30 @@ async function main() {
     },
   });
 
-  console.log({ user1, user2 });
+  const recipe1 = await prisma.recipe.create({
+    data: {
+      name: 'Pasta',
+      description: 'Pasta with tomato sauce',
+      ingredients: {
+        create: [
+          {
+            amount: 1,
+            ingredient: {
+              create: {
+                name: 'Pasta',
+                kcal: 100,
+                mainType: 'CARBOHYDRATE',
+              },
+            },
+          },
+        ],
+      },
+    },
+  });
+
+  console.log({ user1, user2, recipe1 });
+
+  await loadFruits();
 }
 
 main()
