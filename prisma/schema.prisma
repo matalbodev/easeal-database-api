@@ -42,7 +42,7 @@ enum Role {
 }
 
 model Ingredient {
-  uuid             String             @id @default(uuid()) @db.Uuid
+  id               String             @id @default(cuid())
   createdAt        DateTime           @default(now())
   updatedAt        DateTime           @updatedAt
   name             String             @db.VarChar(255)
@@ -52,7 +52,7 @@ model Ingredient {
 }
 
 model Recipe {
-  uuid        String             @id @default(uuid()) @db.Uuid
+  id          String             @id @default(cuid())
   createdAt   DateTime           @default(now())
   updatedAt   DateTime           @updatedAt
   name        String             @db.VarChar(255)
@@ -63,18 +63,18 @@ model Recipe {
 }
 
 model RecipeIngredient {
-  recipeUuid     String     @db.Uuid
-  ingredientUuid String     @db.Uuid
-  amount         Int        @db.Integer
-  recipe         Recipe     @relation(fields: [recipeUuid], references: [uuid])
-  ingredient     Ingredient @relation(fields: [ingredientUuid], references: [uuid])
+  recipeId     String
+  ingredientId String
+  amount       Int        @db.Integer
+  recipe       Recipe     @relation(fields: [recipeId], references: [id])
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
 
-  @@id([recipeUuid, ingredientUuid])
+  @@id([recipeId, ingredientId])
 }
 
 enum MainType {
-  PROTEIN
-  CARBOHYDRATE
-  FAT
-  SUGAR
+  protein
+  carbohydrates
+  fat
+  sugar
 }

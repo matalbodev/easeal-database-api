@@ -27,17 +27,17 @@ Table Post {
 }
 
 Table Ingredient {
-  uuid String [pk]
+  id String [pk]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
   name String [not null]
   kcal Int [not null, default: 0]
-  mainType String [not null]
+  mainType MainType [not null]
   RecipeIngredient RecipeIngredient [not null]
 }
 
 Table Recipe {
-  uuid String [pk]
+  id String [pk]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
   name String [not null]
@@ -48,14 +48,14 @@ Table Recipe {
 }
 
 Table RecipeIngredient {
-  recipeUuid String [not null]
-  ingredientUuid String [not null]
+  recipeId String [not null]
+  ingredientId String [not null]
   amount Int [not null]
   recipe Recipe [not null]
   ingredient Ingredient [not null]
 
   indexes {
-    (recipeUuid, ingredientUuid) [pk]
+    (recipeId, ingredientId) [pk]
   }
 }
 
@@ -64,10 +64,17 @@ Enum Role {
   USER
 }
 
+Enum MainType {
+  protein
+  carbohydrates
+  fat
+  sugar
+}
+
 Ref: Post.authorId > User.id
 
 Ref: Recipe.authorId > User.id
 
-Ref: RecipeIngredient.recipeUuid > Recipe.uuid
+Ref: RecipeIngredient.recipeId > Recipe.id
 
-Ref: RecipeIngredient.ingredientUuid > Ingredient.uuid
+Ref: RecipeIngredient.ingredientId > Ingredient.id

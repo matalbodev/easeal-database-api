@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { MainType, PrismaClient } from '@prisma/client';
 import axios from 'axios';
 
 const prisma = new PrismaClient();
@@ -29,7 +29,7 @@ const loadFruits = async () => {
         data: {
           name: fruit.name,
           kcal: fruit.nutritions.calories,
-          mainType: highestNutrition,
+          mainType: highestNutrition as MainType,
         },
       });
 
@@ -99,7 +99,7 @@ async function main() {
               create: {
                 name: 'Pasta',
                 kcal: 100,
-                mainType: 'CARBOHYDRATE',
+                mainType: 'carbohydrates',
               },
             },
           },
