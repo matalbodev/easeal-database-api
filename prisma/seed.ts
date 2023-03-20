@@ -44,6 +44,7 @@ async function main() {
   await prisma.recipeIngredient.deleteMany();
   await prisma.recipe.deleteMany();
   await prisma.ingredient.deleteMany();
+  await prisma.dayToEat.deleteMany();
 
   console.log('Seeding...');
 
@@ -108,7 +109,24 @@ async function main() {
     },
   });
 
-  console.log({ user1, user2, recipe1 });
+  const dayToEat1 = await prisma.dayToEat.create({
+    data: {
+      date: new Date(),
+      recipeType: 'breakfast',
+      recipe: {
+        connect: {
+          id: recipe1.id,
+        },
+      },
+      user: {
+        connect: {
+          id: user1.id,
+        },
+      },
+    },
+  });
+
+  console.log({ user1, user2, recipe1, dayToEat1 });
 
   await loadFruits();
 }
