@@ -14,6 +14,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GqlConfigService } from './gql-config.service';
 import { RecipeModule } from './recipe/recipe.module';
 import { IngredientModule } from './ingredient/ingredient.module';
+import { DaytoeatModule } from './daytoeat/daytoeat.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { IngredientModule } from './ingredient/ingredient.module';
     PostsModule,
     RecipeModule,
     IngredientModule,
+    DaytoeatModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver],
