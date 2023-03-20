@@ -13,6 +13,7 @@ Table User {
   posts Post [not null]
   role Role [not null]
   Recipe Recipe [not null]
+  DayToEat DayToEat [not null]
 }
 
 Table Post {
@@ -45,6 +46,7 @@ Table Recipe {
   ingredients RecipeIngredient [not null]
   author User
   authorId String
+  dayToEat DayToEat [not null]
 }
 
 Table RecipeIngredient {
@@ -56,6 +58,19 @@ Table RecipeIngredient {
 
   indexes {
     (recipeId, ingredientId) [pk]
+  }
+}
+
+Table DayToEat {
+  date DateTime [not null]
+  recipeType RecipeType [not null]
+  recipe Recipe [not null]
+  recipeId String [not null]
+  user User [not null]
+  userId String [not null]
+
+  indexes {
+    (recipeId, userId) [pk]
   }
 }
 
@@ -71,6 +86,13 @@ Enum MainType {
   sugar
 }
 
+Enum RecipeType {
+  breakfast
+  lunch
+  dinner
+  snack
+}
+
 Ref: Post.authorId > User.id
 
 Ref: Recipe.authorId > User.id
@@ -78,3 +100,7 @@ Ref: Recipe.authorId > User.id
 Ref: RecipeIngredient.recipeId > Recipe.id
 
 Ref: RecipeIngredient.ingredientId > Ingredient.id
+
+Ref: DayToEat.recipeId > Recipe.id
+
+Ref: DayToEat.userId > User.id
