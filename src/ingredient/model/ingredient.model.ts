@@ -19,11 +19,3 @@ export class Ingredient extends BaseModel {
   @Field(() => MainType)
   mainType: MainType;
 }
-
-export class RecipeIngredient {
-  @Field(() => Ingredient)
-  ingredient: Ingredient;
-
-  @Field(() => Number)
-  amount: number;
-}
