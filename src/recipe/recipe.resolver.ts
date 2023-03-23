@@ -2,7 +2,6 @@ import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { Recipe } from './models/recipe.model';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from 'src/auth/gql-auth.guard';
-import { RecipesArgs } from './dto/recipes.args';
 import { PrismaService } from 'nestjs-prisma';
 import { CreateRecipeInput } from './dto/create-recipe.input';
 
@@ -23,8 +22,23 @@ export class RecipeResolver {
     });
   }
 
-  @Query(() => [Recipe], { name: 'recipes' })
-  findAll(@Args() recipesArgs: RecipesArgs) {
-    return this.prisma.recipe.findMany(recipesArgs);
+  @Query(() => Recipe, { name: 'recipe' })
+  findOne(@Args('id', { type: () => String }) id: string) {
+    return this.prisma.recipe.findUnique({
+      where: { id },
+    });
+  }
+
+  @Query(() => [Recipe], { name: 'recipes', nullable: true })
+  async findAllWithIngredients() {
+    return await this.prisma.recipe.findMany({
+      include: {
+        ingredients: {
+          include: {
+            ingredient: true,
+          },
+        },
+      },
+    });
   }
 }
