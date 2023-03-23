@@ -16,6 +16,25 @@ input ChangePasswordInput {
   oldPassword: String!
 }
 
+"""Main type of ingredient"""
+enum Classification {
+  alcohol
+  cereals
+  dairy
+  egg
+  fish
+  fruit
+  herbs
+  meat
+  nuts
+  oil
+  other
+  pasta
+  rice
+  spices
+  vegetable
+}
+
 input CreateDaytoeatDto {
   date: DateTime!
   recipeId: String!
@@ -24,6 +43,7 @@ input CreateDaytoeatDto {
 }
 
 input CreateIngredientInput {
+  classification: String!
   kcal: Int!
   mainType: String!
   name: String!
@@ -66,8 +86,11 @@ type Daytoeat {
 }
 
 type Ingredient {
+  classification: Classification!
+
   """Identifies the date and time when the object was created."""
   createdAt: DateTime!
+  description: String!
   id: ID!
   kcal: Int!
   mainType: MainType!
@@ -75,6 +98,17 @@ type Ingredient {
 
   """Identifies the date and time when the object was last updated."""
   updatedAt: DateTime!
+}
+
+type IngredientConnection {
+  edges: [IngredientEdge!]
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type IngredientEdge {
+  cursor: String!
+  node: Ingredient!
 }
 
 """
@@ -89,10 +123,11 @@ input LoginInput {
 
 """Main type of ingredient"""
 enum MainType {
-  CARBOHYDRATES
-  FAT
-  PROTEIN
-  SUGAR
+  carbohydrates
+  fat
+  fiber
+  protein
+  sugar
 }
 
 type Mutation {
@@ -166,11 +201,12 @@ type Query {
   daytoeats: [Daytoeat!]!
   hello(name: String!): String!
   helloWorld: String!
-  ingredients: [Ingredient!]!
+  ingredients(after: String, before: String, first: Int, last: Int, skip: Int): IngredientConnection!
   me: User!
   post(postId: String!): Post!
   publishedPosts(after: String, before: String, first: Int, last: Int, orderBy: PostOrder, query: String, skip: Int): PostConnection!
-  recipes(skip: Int! = 0, take: Int! = 25): [Recipe!]!
+  recipe(id: String!): Recipe!
+  recipes: [Recipe!]
   userPosts(userId: String!): [Post!]!
 }
 

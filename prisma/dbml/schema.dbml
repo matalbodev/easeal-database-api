@@ -34,6 +34,7 @@ Table Ingredient {
   name String [not null]
   kcal Int [not null, default: 0]
   mainType MainType [not null]
+  classification Classification [not null]
   RecipeIngredient RecipeIngredient [not null]
 }
 
@@ -70,7 +71,7 @@ Table DayToEat {
   userId String [not null]
 
   indexes {
-    (recipeId, userId) [pk]
+    (recipeId, userId, date, recipeType) [pk]
   }
 }
 
@@ -79,11 +80,30 @@ Enum Role {
   USER
 }
 
+Enum Classification {
+  vegetable
+  fruit
+  meat
+  fish
+  egg
+  dairy
+  cereals
+  rice
+  pasta
+  oil
+  nuts
+  spices
+  herbs
+  alcohol
+  other
+}
+
 Enum MainType {
   protein
   carbohydrates
   fat
   sugar
+  fiber
 }
 
 Enum RecipeType {

@@ -1,50 +1,14 @@
-import { MainType, PrismaClient } from '@prisma/client';
-import axios from 'axios';
-
+import { PrismaClient } from '@prisma/client';
+import { loadFruits, loadVegetables } from './src/loader';
 const prisma = new PrismaClient();
-
-const loadFruits = async () => {
-  const response = await axios.get('https://fruityvice.com/api/fruit/all');
-  const fruits = response.data;
-
-  // loop through the data and create a new ingredient for each fruit
-  fruits.forEach(
-    async (fruit: {
-      name: string;
-      nutritions: {
-        calories: number;
-        carbohydrates: number;
-        fat: number;
-        protein: number;
-      };
-    }) => {
-      const nutritions = fruit.nutritions;
-      const nutritionsClone = { ...nutritions };
-      delete nutritionsClone.calories;
-      const highestNutrition = Object.keys(nutritionsClone).reduce((a, b) =>
-        nutritionsClone[a] > nutritionsClone[b] ? a : b
-      );
-
-      const ingredient = await prisma.ingredient.create({
-        data: {
-          name: fruit.name,
-          kcal: fruit.nutritions.calories,
-          mainType: highestNutrition as MainType,
-        },
-      });
-
-      console.log(`Created ingredient: ${ingredient.name}`);
-    }
-  );
-};
 
 async function main() {
   await prisma.user.deleteMany();
   await prisma.post.deleteMany();
+  await prisma.dayToEat.deleteMany();
   await prisma.recipeIngredient.deleteMany();
   await prisma.recipe.deleteMany();
   await prisma.ingredient.deleteMany();
-  await prisma.dayToEat.deleteMany();
 
   console.log('Seeding...');
 
@@ -88,6 +52,15 @@ async function main() {
     },
   });
 
+  const pasta = await prisma.ingredient.create({
+    data: {
+      name: 'Pasta',
+      kcal: 100,
+      mainType: 'carbohydrates',
+      classification: 'pasta',
+    },
+  });
+
   const recipe1 = await prisma.recipe.create({
     data: {
       name: 'Pasta',
@@ -97,10 +70,8 @@ async function main() {
           {
             amount: 1,
             ingredient: {
-              create: {
-                name: 'Pasta',
-                kcal: 100,
-                mainType: 'carbohydrates',
+              connect: {
+                id: pasta.id,
               },
             },
           },
@@ -129,6 +100,7 @@ async function main() {
   console.log({ user1, user2, recipe1, dayToEat1 });
 
   await loadFruits();
+  await loadVegetables();
 }
 
 main()
