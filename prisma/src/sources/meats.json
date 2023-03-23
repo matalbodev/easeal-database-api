@@ -1,0 +1,222 @@
+[
+  {
+    "name": "Alligator",
+    "kcal": 232
+  },
+  {
+    "name": "Beef",
+    "kcal": 248
+  },
+  {
+    "name": "Beef Brisket",
+    "kcal": 242
+  },
+  {
+    "name": "Beef Jerky",
+    "kcal": 410
+  },
+  {
+    "name": "Beef Ribs",
+    "kcal": 238
+  },
+  {
+    "name": "Beef Tenderloin",
+    "kcal": 218
+  },
+  {
+    "name": "Chicken",
+    "kcal": 219
+  },
+  {
+    "name": "Chicken Breast",
+    "kcal": 172
+  },
+  {
+    "name": "Chicken Drumstick",
+    "kcal": 185
+  },
+  {
+    "name": "Chicken Fat",
+    "kcal": 898
+  },
+  {
+    "name": "Chicken Giblets",
+    "kcal": 158
+  },
+  {
+    "name": "Chicken Gizzards",
+    "kcal": 146
+  },
+  {
+    "name": "Chicken Heart",
+    "kcal": 174
+  },
+  {
+    "name": "Chicken Leg",
+    "kcal": 174
+  },
+  {
+    "name": "Chicken Liver",
+    "kcal": 167
+  },
+  {
+    "name": "Chicken Meat",
+    "kcal": 172
+  },
+  {
+    "name": "Chicken Thigh",
+    "kcal": 229
+  },
+  {
+    "name": "Chicken Wing",
+    "kcal": 266
+  },
+  {
+    "name": "Chuck Steak",
+    "kcal": 277
+  },
+  {
+    "name": "Cubed Steak",
+    "kcal": 199
+  },
+  {
+    "name": "Duck",
+    "kcal": 337
+  },
+  {
+    "name": "Filet Mignon",
+    "kcal": 267
+  },
+  {
+    "name": "Flank Steak",
+    "kcal": 194
+  },
+  {
+    "name": "Flat Iron Steak",
+    "kcal": 137
+  },
+  {
+    "name": "Ground Beef",
+    "kcal": 246
+  },
+  {
+    "name": "Ground Round",
+    "kcal": 246
+  },
+  {
+    "name": "Ham",
+    "kcal": 163
+  },
+  {
+    "name": "New York Strip Steak",
+    "kcal": 199
+  },
+  {
+    "name": "Ostrich",
+    "kcal": 145
+  },
+  {
+    "name": "Pork",
+    "kcal": 196
+  },
+  {
+    "name": "Pork Baby Back Ribs",
+    "kcal": 212
+  },
+  {
+    "name": "Pork Chops",
+    "kcal": 196
+  },
+  {
+    "name": "Pork Country-Style Ribs",
+    "kcal": 247
+  },
+  {
+    "name": "Pork Loin",
+    "kcal": 204
+  },
+  {
+    "name": "Pork Roast",
+    "kcal": 254
+  },
+  {
+    "name": "Pork Steaks",
+    "kcal": 196
+  },
+  {
+    "name": "Roast Beef",
+    "kcal": 140
+  },
+  {
+    "name": "Round Steak",
+    "kcal": 182
+  },
+  {
+    "name": "Schnitzel",
+    "kcal": 156
+  },
+  {
+    "name": "Spare Ribs",
+    "kcal": 238
+  },
+  {
+    "name": "Standing Rib Roast",
+    "kcal": 333
+  },
+  {
+    "name": "T-Bone Steak",
+    "kcal": 202
+  },
+  {
+    "name": "Turkey",
+    "kcal": 189
+  },
+  {
+    "name": "Turkey Breast",
+    "kcal": 135
+  },
+  {
+    "name": "Turkey Legs",
+    "kcal": 208
+  },
+  {
+    "name": "Turkey Steak",
+    "kcal": 189
+  },
+  {
+    "name": "Turkey Wings",
+    "kcal": 221
+  },
+  {
+    "name": "Veal",
+    "kcal": 282
+  },
+  {
+    "name": "Veal Breast",
+    "kcal": 282
+  },
+  {
+    "name": "Veal Leg",
+    "kcal": 211
+  },
+  {
+    "name": "Veal Roast Beef",
+    "kcal": 175
+  },
+  {
+    "name": "Veal Shank",
+    "kcal": 177
+  },
+  {
+    "name": "Veal Shoulder",
+    "kcal": 183
+  },
+  {
+    "name": "Veal Sirloin",
+    "kcal": 204
+  },
+  {
+    "name": "Veal Tenderloin",
+    "kcal": 217
+  }
+]
